@@ -14,15 +14,22 @@ def factorize_number(n):
     return factors
 
 def main(file_path):
-    with open(file_path, 'r') as file:
-        for line in file:
-            number = int(line.strip())
-            factors = factorize_number(number)
-            print(f"{number}={'*'.join(map(str, factors))}")
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                number = int(line.strip())
+                factors = factorize_number(number)
+                print(f"{number}={'*'.join(map(str, factors))}")
+    except FileNotFoundError:
+        print(f"Error: File not found: {file_path}")
+        sys.exit(1)
+    except ValueError:
+        print(f"Error: Invalid number in file: {file_path}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: factors <file>")
+        print("Usage: ./script_name <file>")
         sys.exit(1)
 
     file_path = sys.argv[1]
